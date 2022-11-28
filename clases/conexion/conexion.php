@@ -30,11 +30,17 @@ private function datosConexion(){
     return json_decode($jsondata, true);
 }
 
-/* "server":"localhost",
-"user":"root",
-"password":"",
-"database":"apirest",
-"port":"3306" */  
+private function convertirUtf8($array){
+    array_walk_recursive($array,function(&$item,$key){
+        if(!mb_detect_encoding($item,'utf-8',true)){
+            $item = utf8_encode($item);
+        }
+    });
+    return $array;
+}
+
+
+
 }
 
 ?>
