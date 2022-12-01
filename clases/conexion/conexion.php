@@ -39,7 +39,29 @@ private function convertirUtf8($array){
     return $array;
 }
 
+public function obtenerDatos($sqlstr){
+    $results = $this->conexion->query($sqlstr);
+    $resultArray = array();
+    foreach ($results as $key) {
+        $resultArray[] = $key;
+    }
+    return $this->convertirUtf8($resultArray);
+}
 
+public function nomQuery($sqlsrt){
+    $results = $this->conexion->query($sqlsrt);
+    return $this->conexion->affected_rows;
+}
+
+public function nomQueryId($sqlsrt){
+    $results = $this->conexion->query($sqlsrt);
+    $filas = $this->conexion->affected_rows;
+    if($filas >= 1){
+        return $this->conexion->insert_id;
+    }else{
+        return 0;
+    }
+}
 
 }
 
