@@ -3,8 +3,8 @@ require_once"clases/conexion/conexion.php";
 
 $conexion = new conexion;
 
-$query = "Select * from pacientes";
+$query = "INSERT INTO pacientes (DNI)VALUE('0')";
 
-print_r($conexion->obtenerDatos($query));
+print_r($conexion->nomQuery($query));
 
 ?>

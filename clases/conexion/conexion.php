@@ -53,6 +53,8 @@ public function nomQuery($sqlsrt){
     return $this->conexion->affected_rows;
 }
 
+// insertar
+
 public function nomQueryId($sqlsrt){
     $results = $this->conexion->query($sqlsrt);
     $filas = $this->conexion->affected_rows;
