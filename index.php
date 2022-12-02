@@ -5,6 +5,8 @@ $conexion = new conexion;
 
 $query = "INSERT INTO pacientes (DNI)VALUE('0')";
 
-print_r($conexion->nomQuery($query));
+/* print_r($conexion->nomQuery($query)); */
+
+print_r($conexion->nomQueryId($query));
 
 ?>
