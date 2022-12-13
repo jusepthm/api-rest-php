@@ -7,7 +7,7 @@ $_respuetas = new respuestas;
 
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
-    
+    echo "hola desde el documento";
 }else{
     echo "Metodo no permitido";
 }
