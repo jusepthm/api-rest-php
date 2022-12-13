@@ -9,11 +9,33 @@ class auth extends conexion{
         $datos = json_decode($json,true);
         if(!isset($datos['usuario']) || !isset($datos["password"])){
             // error con los campos
+            return $_respuestas->error_400();
         }else{
-            //todo bien
+            //bien
+            $usuario = $datos['usuario'];
+            $password = $datos["password"];
+            $datos = $this->obtenerDatosUsuario($usuario);
+            if($datos){
+                //si existe el usuario
+            }else{
+                //si no existe el usuario
+                return $_respuestas->error_200("El usuario $usuario no existe");
+            }
         }
 
     }
+
+
+    private function obtenerDatosUsuario($correo){
+        $query = "SELECT UsuarioId,Password,Estado FROM usuarios WHERE usuario = '$correo'";
+        $datos = parent::obtenerDatos($query);
+        if(isset($datos[0]["UsuarioId"])){
+            return $datos;
+        }else{
+            return 0;
+        }
+    }
+
 }
 
 ?>
