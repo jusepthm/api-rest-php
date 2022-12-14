@@ -65,6 +65,13 @@ public function nomQueryId($sqlsrt){
     }
 }
 
+
+//encriptar 
+
+protected function encriptar($string){
+     
+}
+
 }
 
 ?>
