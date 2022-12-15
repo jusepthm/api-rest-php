@@ -2,7 +2,7 @@
 
 class respuestas{
 
-private $response = [
+public $response = [
     'status' => "ok",
     "result" => array()
 ];

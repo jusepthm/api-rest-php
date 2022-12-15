@@ -24,8 +24,12 @@ class auth extends conexion{
                         $verificar = $this->insertarToken($datos[0]['UsuarioId']);
                         if($verificar){
                             //si se guardo
+                            $result = $_respuestas->response;
+                            $result["result"] = array("token" => $verificar);
+                            return $result;
                         }else{
                             //error al guardar
+                            return $_respuestas->error_500("Error interno, no hemos podido guardar");
                         }
                     }else{
                        //usuario onactivo
@@ -61,7 +65,7 @@ class auth extends conexion{
         $token = bin2hex(openssl_random_pseudo_bytes(16,$val));
         $date = date("Y-m-d H:i");
         $estado = "Activo";
-        $query ="INSERT INTO usuarios_token (Usuarioid,Token,Estado,Fecha)VALUES('$usuarioId','$token','$estado','$date')";
+        $query ="INSERT INTO usuarios_token (UsuarioId,Token,Estado,Fecha)VALUES('$usuarioId','$token','$estado','$date')";
         $verifica = parent::nomQuery($query);
         if($verifica){
             return $token;
