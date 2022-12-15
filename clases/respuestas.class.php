@@ -33,6 +33,15 @@ public function error_400(){
     );
     return $this->response;
 }
+
+public function error_500($string = "Error interno del servidor"){
+    $this->response['status'] = "error";
+    $this->response['result'] = array(
+        "error_id" =>"500",
+        "error_msg" => $string
+    );
+    return $this->response;
+}
     
 }
 

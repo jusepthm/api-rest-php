@@ -19,10 +19,21 @@ class auth extends conexion{
             if($datos){
                 //verificacion de contraseña
                 if($password == $datos[0]['Password']){
-
+                    if($datos[0]['Estado'] == "Activo"){
+                        //crear token
+                        $verificar = $this->insertarToken($datos[0]['UsuarioId']);
+                        if($verificar){
+                            //si se guardo
+                        }else{
+                            //error al guardar
+                        }
+                    }else{
+                       //usuario onactivo
+                       return $_respuestas->error_200("El usuario esta inactivo");
+                    }
                 }else{
                     //contraseña no es igual
-                return $_respuestas->error_200("El password no valido");
+                return $_respuestas->error_200("Password no valido");
                 }
                 
 
@@ -44,6 +55,21 @@ class auth extends conexion{
             return 0;
         }
     }
+
+    private function insertarToken($usuarioId){
+        $val = true;
+        $token = bin2hex(openssl_random_pseudo_bytes(16,$val));
+        $date = date("Y-m-d H:i");
+        $estado = "Activo";
+        $query ="INSERT INTO usuarios_token (Usuarioid,Token,Estado,Fecha)VALUES('$usuarioId','$token','$estado','$date')";
+        $verifica = parent::nomQuery($query);
+        if($verifica){
+            return $token;
+        }else{
+            return 0;
+        }
+    }
+
 
 }
 

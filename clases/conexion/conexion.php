@@ -69,7 +69,7 @@ public function nomQueryId($sqlsrt){
 //encriptar 
 
 protected function encriptar($string){
-     
+     return md5($string); 
 }
 
 }
