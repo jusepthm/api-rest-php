@@ -8,13 +8,26 @@ $_respuetas = new respuestas;
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
     
+    //recibir datos
     $postBody = file_get_contents("php://input");
-    //print_r($postBody);
+    //enviamos los datos al manejador
     $datosArray = $_auth->login($postBody);
-    print_r(json_encode($datosArray));
+
+    //devolvemos una respuesta
+    header('content-Type: application/json');
+    if(isset($datosArray["result"]["error_id"])){
+        $responseCode = $datosArray["result"]["error_id"];
+        http_response_code($responseCode);
+    }else{
+        http_response_code(200);
+    }
+    echo json_encode($datosArray);
+    /* print_r(json_encode($datosArray)); */
 
 }else{
-    echo "Metodo no permitido";
+    header('Content-Type: application/json');
+    $datosArray = $_respuetas->error_405();
+    echo json_encode($datosArray);
 }
 
 
