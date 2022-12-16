@@ -11,10 +11,20 @@ $_pacientes = new pacientes;
     if(isset($_GET["page"])){
         $pagina = $_GET["page"];
         $listaPacientes = $_pacientes->listaPacientes($pagina);
+        header("Content-Type: application/json");
         echo json_encode($listaPacientes);
+        http_response_code(200);
+         }else if(isset($_GET['id'])){
+         $_pacientesId = $_GET['id'];
+         $datosPaciente = $_pacientes->obtenerPaciente($_pacientesId);
+         header("Content-Type: application/json");
+         echo json_encode($datosPaciente);
+         http_response_code(200);
     }
     
  }else if($_SERVER['REQUEST_METHOD'] == "POST"){
+      //Recibir datos enviados
+
     echo "Hola POST";
  }else if($_SERVER['REQUEST_METHOD'] == "PUT"){
     echo "Hola PUT";
