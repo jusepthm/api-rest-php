@@ -14,18 +14,21 @@ $_pacientes = new pacientes;
         header("Content-Type: application/json");
         echo json_encode($listaPacientes);
         http_response_code(200);
-         }else if(isset($_GET['id'])){
-         $_pacientesId = $_GET['id'];
-         $datosPaciente = $_pacientes->obtenerPaciente($_pacientesId);
-         header("Content-Type: application/json");
-         echo json_encode($datosPaciente);
-         http_response_code(200);
+    }else if(isset($_GET['id'])){
+      $_pacientesId = $_GET['id'];
+      $datosPaciente = $_pacientes->obtenerPaciente($_pacientesId);
+      header("Content-Type: application/json");
+      echo json_encode($datosPaciente);
+      http_response_code(200);
     }
     
  }else if($_SERVER['REQUEST_METHOD'] == "POST"){
-      //Recibir datos enviados
-
-    echo "Hola POST";
+      //Recibimos datos enviados
+      $postBody = file_get_contents("php://input");
+      //Enviamos los datos al manejador
+      $resp = $_pacientes->post($postBody);
+      print_r($resp);
+   
  }else if($_SERVER['REQUEST_METHOD'] == "PUT"){
     echo "Hola PUT";
  }else if($_SERVER['REQUEST_METHOD'] == "DELETE"){
